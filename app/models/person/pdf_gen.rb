@@ -98,7 +98,9 @@ class Person
             pdf.text family.address2 + "\n" if family.address2.to_s.any?
             pdf.text family.city + ', ' + family.state + '  ' + family.zip + "\n"
           end
-          pdf.text ApplicationHelper.format_phone(family.home_phone), :font_size => 14 if family.home_phone.to_i > 0
+          unless family.people.detect { |p| p.share_home_phone == false } 
+            pdf.text ApplicationHelper.format_phone(family.home_phone), :font_size => 14 if family.home_phone.to_i > 0
+          end
           family.people.find_all_by_deleted(false).each do |person|
             name = person.last_name == family.last_name ? person.first_name : person.name
             pdf.text "\n", :font_size => 11
