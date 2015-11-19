@@ -626,7 +626,7 @@ class Person < ActiveRecord::Base
 
   class << self
 
-    def new_with_default_sharing(attrs)
+    def new_with_default_sharing(attrs = {})
       attrs.symbolize_keys! if attrs.respond_to?(:symbolize_keys!)
       attrs.merge!(
         :share_address      => Setting.get(:privacy, :share_address_by_default     ),
@@ -659,7 +659,7 @@ class Person < ActiveRecord::Base
           # because we'll just go ahead and create a new record below anyway (and non-matched ones are marked as deleted)
         end
         # last resort, create a new record
-        person ||= new
+        person ||= new_with_default_sharing
         person.family_id = family_id
         record.each do |key, value|
           value = nil if value == ''
