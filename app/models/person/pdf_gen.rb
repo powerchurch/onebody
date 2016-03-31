@@ -62,7 +62,7 @@ class Person
         :order => 'families.last_name, families.name, people.sequence',
         :include => 'people'
       ).each do |family|
-        if family.mapable? or family.home_phone.to_i > 0
+        if (family.visible? and family.deleted? == false and (family.mapable? or family.home_phone.to_i > 0))
           pdf.move_pointer 120 if pdf.y < 120
           if family.last_name[0..0] != alpha
             if with_pictures and family.photo.exists?
