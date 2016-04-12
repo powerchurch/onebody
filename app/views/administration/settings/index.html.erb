@@ -2,15 +2,15 @@
   <h2><%= t('admin.settings.settings') %></h2>
 
   <ul class="list">
-    <li><%= link_to_function t('admin.settings.name_heading'),                  "scrollTo('name')"                  %></li>
-    <li><%= link_to_function t('admin.settings.contact_heading'),               "scrollTo('contact')"               %></li>
-    <li><%= link_to_function t('admin.settings.features_heading'),              "scrollTo('features')"              %></li>
-    <li><%= link_to_function t('admin.settings.sharing_heading'),               "scrollTo('sharing')"               %></li>
-    <li><%= link_to_function t('admin.settings.membership_management_heading'), "scrollTo('membership_management')" %></li>
-    <li><%= link_to_function t('admin.settings.locale_heading'),                "scrollTo('locale')"                %></li>
-    <li><%= link_to_function t('admin.settings.formats_heading'),               "scrollTo('formats')"               %></li>
-    <li><%= link_to_function t('admin.settings.privacy_heading'),               "scrollTo('privacy')"               %></li>
-    <li><%= link_to_function t('admin.settings.services_heading'),              "scrollTo('services')"              %></li>
+    <li><%= link_to_function t('admin.settings.name_heading'),                  "rollUp('name')"                  %></li>
+    <li><%= link_to_function t('admin.settings.contact_heading'),               "rollUp('contact')"               %></li>
+    <li><%= link_to_function t('admin.settings.features_heading'),              "rollUp('features')"              %></li>
+    <li><%= link_to_function t('admin.settings.sharing_heading'),               "rollUp('sharing')"               %></li>
+    <li><%= link_to_function t('admin.settings.membership_management_heading'), "rollUp('membership_management')" %></li>
+    <li><%= link_to_function t('admin.settings.locale_heading'),                "rollUp('locale')"                %></li>
+    <li><%= link_to_function t('admin.settings.formats_heading'),               "rollUp('formats')"               %></li>
+    <li><%= link_to_function t('admin.settings.privacy_heading'),               "rollUp('privacy')"               %></li>
+    <li><%= link_to_function t('admin.settings.services_heading'),              "rollUp('services')"              %></li>
   </ul>
 
   <% if @logged_in.super_admin? %>
@@ -142,7 +142,7 @@
   setupToggler(<%= @settings['Features']['Prayer Event'].id %>, [<%= @settings['Features']['Prayer Event First Date and Time'].id %>,
                                                                  <%= @settings['Features']['Prayer Event Last Date and Time' ].id %>]);
 
-  function scrollTo(id) {
+  function rollUp(id) {
     $('html, body').animate({'scrollTop':$('#'+id).offset().top}, 'slow');
   }
 </script>
