@@ -16,7 +16,6 @@ class Verse < ActiveRecord::Base
 
   def reference=(ref)
     write_attribute :reference, Verse.normalize_reference(ref)
-    lookup
   end
 
   def to_param
@@ -34,7 +33,7 @@ class Verse < ActiveRecord::Base
   end
 
   # living stones (KJV, ASV, YLT, AKJV, WEB)
-  LS_BASE_URL = 'http://www.seek-first.com/Bible.php?q=&passage=Seek'
+  LS_BASE_URL = 'http://bible-api.com/'
 
   def lookup
     if Rails.env == 'test'
@@ -44,19 +43,11 @@ class Verse < ActiveRecord::Base
     else
       return if reference.nil? or reference.empty?
       self.translation = 'WEB' if translation.nil?
-      url = LS_BASE_URL + '&p=' + URI.escape(reference) + '&version=' + translation
-      result = Net::HTTP.get(URI.parse(url))
-      url = /<!\-\-\s*(http:\/\/api\.seek\-first\.com.+?)\s*\-\->/.match(result)[1]
-      result = Net::HTTP.get(URI.parse(url)).gsub(/\s+/, ' ').gsub(/ì|î/, '"').gsub(/ë|í/, "'").gsub('*', '')
-      begin
-         self.text = result.scan(/<Text>(.+?)<\/Text>/).map { |p| p[0].gsub(/<.+?>/, '').strip }.join(' ')
-         # maybe not needed? - breaks in ruby 1.9
-         #self.text.gsub!(/\223|\224/, '"')
-         #self.text.gsub!(/\221|\222/, "'")
-         #self.text.gsub!(/\227/, "--")
-         self.update_sortables
-      rescue
-        nil
+
+      if result = self.class.fetch(reference) and result['error'].nil?
+        self.reference = result['reference']
+        self.text = result['text']
+        update_sortables
       end
     end
   end
@@ -244,6 +235,15 @@ class Verse < ActiveRecord::Base
 
     def find_by_reference(reference)
       find_or_create_by_reference(Verse.normalize_reference(reference))
+    end
+
+    def fetch(ref)
+      url = LS_BASE_URL + URI.escape(ref)
+      begin
+        JSON.parse(Net::HTTP.get(URI.parse(url)))
+      rescue JSON::ParserError, SocketError
+        nil
+      end
     end
 
     # make the reference normal (proper book name, formatting, etc.)
