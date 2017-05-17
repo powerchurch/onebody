@@ -66,7 +66,7 @@ class Person < ActiveRecord::Base
   validates_format_of :business_website, :allow_nil => true, :allow_blank => true, :with => /^https?\:\/\/.+/
   validates_format_of :business_email, :allow_nil => true, :allow_blank => true, :with => VALID_EMAIL_ADDRESS
   validates_format_of :alternate_email, :allow_nil => true, :allow_blank => true, :with => VALID_EMAIL_ADDRESS
-  validates_inclusion_of :gender, :in => %w(Male Female), :allow_nil => true
+  # validates_inclusion_of :gender, :in => %w(Male Female), :allow_nil => true
   validates_attachment_size :photo, :less_than => PAPERCLIP_PHOTO_MAX_SIZE
   validates_attachment_content_type :photo, :content_type => PAPERCLIP_PHOTO_CONTENT_TYPES
 
