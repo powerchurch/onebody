@@ -2,7 +2,7 @@
 
 OneBody is open-source, web-based social networking and online directory software for churches. OneBody is built on Ruby on Rails 2.3 and MySQL.
 
-Screenshots and feature information can be found at the [commercial website](http://beonebody.com).
+A demo can be found [here](http://www.ourchurchfamily.net).
 
 
 ## Install on Ubuntu
@@ -48,7 +48,6 @@ Please visit the [PostfixEmailSetup](http://github.com/seven1m/onebody/wiki/Post
 ## More Information
 
 * [Wiki](http://wiki.github.com/seven1m/onebody) - A wonderful resource full of helpful information; Check here first.
-* [Blog](http://blog.beonebody.com) - Some intermittent updates about new features.
 * [Google Group](http://groups.google.com/group/onebodyapp) - Community of hackers working on OneBody and running their own OneBody servers. If you're stuck, ask nicely for some help and you will probably get it.
 * [Twitter](http://twitter.com/onebody) - Status updates for beonebody.com and occasional feature notes.
 
