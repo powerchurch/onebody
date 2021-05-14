@@ -82,9 +82,10 @@ class Person < ActiveRecord::Base
       end
     elsif attribute.to_s == 'child' and not record.deleted?
       y = record.years_of_age
-      if value == true and y and y >= 13
+      a = Setting.get(:system, :adult_age).to_i
+      if value == true and y and y >= a
         record.errors.add attribute, :cannot_be_yes
-      elsif value == false and y and y < 13
+      elsif value == false and y and y < a
         record.errors.add attribute, :cannot_be_no
       elsif value.nil? and y.nil?
         record.errors.add attribute, :blank
